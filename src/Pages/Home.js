@@ -1,82 +1,112 @@
-import React from 'react';
-import { Container, Typography, Paper, List, ListItem, Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Container, Paper, Typography, TextField, Button, Link } from '@mui/material';
+import { styled } from '@mui/system';
+import EBKImage from '../ebk-ticketing-system.png'; // Import your EBK image
 
-import Footer from '../Components/Footer';
+const StyledContainer = styled(Container)({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100vh',
+});
 
-const homeStyles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '20px',
-    marginTop: '20px',
-    minHeight: '100vh', // Ensure the content stretches to at least the full viewport height
-    position: 'relative', // Needed to position the footer
-  },
-  paper: {
-    padding: '20px',
-    textAlign: 'center',
-  },
-  title: {
-    fontSize: '28px',
-    fontWeight: 'bold',
-    marginBottom: '20px',
-  },
-  description: {
-    fontSize: '18px',
-    marginBottom: '20px',
-  },
-  footer: {
-    position: 'absolute', // Position the footer absolutely
-    bottom: 0, // Place it at the bottom
-    width: '100%', // Full width
-  },
-};
+const StyledContent = styled('div')({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  width: '100%',
+  height: '60%', // Adjust the height to your preference
+});
 
-function Home() {
+const StyledImageContainer = styled('div')({
+  flex: 1,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: '20px',
+  marginRight: '20px', // Add margin-right for spacing
+});
+
+const StyledImage = styled('img')({
+  maxHeight: '100%', // Adjust the height of the image
+  maxWidth: '100%',
+  height: 'auto',
+});
+
+const StyledPaper = styled(Paper)({
+  flex: 2,
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'left',
+  padding: '20px',
+  height: '70%', // Adjust the height of the login panel
+});
+
+const StyledTypography = styled(Typography)({
+  fontWeight: 'bold',
+  marginBottom: '20px',
+});
+
+const StyledForm = styled('form')({
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
+  marginBottom: '20px',
+});
+
+const StyledTextField = styled(TextField)({
+  marginBottom: '20px',
+});
+
+const StyledButton = styled(Button)({
+  width: '100%',
+});
+
+const StyledLinkContainer = styled('div')({
+  display: 'flex',
+  justifyContent: 'space-between',
+});
+
+const Home = () => {
+  const [loginError] = useState(null);
+
   return (
-    <div>
-     
-      <Container maxWidth="sm" style={homeStyles.container}>
-        <Paper elevation={3} style={homeStyles.paper}>
-          <Typography variant="h4" style={homeStyles.title}>
+    <StyledContainer maxWidth="md">
+      <StyledContent>
+        <StyledImageContainer>
+          <StyledImage src={EBKImage} alt="EBK Ticketing System" />
+        </StyledImageContainer>
+        <StyledPaper elevation={3}>
+          <StyledTypography variant="h4">
             Welcome to the EBK Ticketing System
+          </StyledTypography>
+          <StyledForm>
+            <StyledTextField
+              label="Email address"
+              variant="outlined"
+              type="email"
+            />
+            <StyledTextField
+              label="Password"
+              variant="outlined"
+              type="password"
+            />
+            <StyledButton variant="contained" color="primary">
+              Login
+            </StyledButton>
+          </StyledForm>
+          <Typography variant="body2" style={{ color: 'red', marginTop: '10px' }}>
+            {loginError}
           </Typography>
-          <Typography variant="body1" style={homeStyles.description}>
-            This is the Engineers Board of Kenya's official ticketing system. Here, you can
-            report issues, track ticket statuses, and request assistance from our support team.
-          </Typography>
-          <Typography variant="body2">
-            To get started, please choose from the following options:
-          </Typography>
-          <List>
-            <ListItem>
-              <Button
-                variant="contained"
-                color="primary"
-                component={Link}
-                to="/submit"
-              >
-                Submit a Ticket
-              </Button>
-            </ListItem>
-            <ListItem>
-              <Button
-                variant="contained"
-                color="primary"
-                component={Link}
-                to="/tickets"
-              >
-                View Ticket List
-              </Button>
-            </ListItem>
-          </List>
-        </Paper>
-      </Container>
-      <Footer style={homeStyles.footer} />
-    </div>
+          <StyledLinkContainer>
+            <Link href="/forgot-password">Forgot password?</Link>
+            <br /> {/* Add a line break for separation */}
+            <Link href="/register">Don't have an account? Sign Up</Link>
+          </StyledLinkContainer>
+        </StyledPaper>
+      </StyledContent>
+    </StyledContainer>
   );
-}
+};
 
 export default Home;

@@ -4,7 +4,12 @@ import { Container, Paper, Typography, TextField, Button } from '@mui/material';
 const containerStyle = {
   display: 'flex',
   justifyContent: 'center',
-   height: '100vh',
+  height: '100vh',
+};
+
+const paperStyle = {
+  padding: '20px',
+  marginTop: '20px', // Add top margin to lower the content
 };
 
 function Register() {
@@ -16,7 +21,7 @@ function Register() {
   return (
     <div style={containerStyle}>
       <Container maxWidth="sm">
-        <Paper elevation={3} style={{ padding: '20px' }}>
+        <Paper elevation={3} style={paperStyle}>
           <Typography variant="h4" style={{ fontWeight: 'bold', marginBottom: '20px' }}>
             Register
           </Typography>

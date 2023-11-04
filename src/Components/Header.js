@@ -1,9 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button, IconButton, Tab, Tabs } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, IconButton, Tab, Tabs, ListItemIcon } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import InfoIcon from '@mui/icons-material/Info';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Login Icon
+import LockOpenIcon from '@mui/icons-material/LockOpen'; // Signup Icon
 import { Link as RouterLink } from 'react-router-dom';
 
 const Header = () => {
@@ -22,7 +24,11 @@ const Header = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           EBK Ticketing System
         </Typography>
-        <Tabs value={false} onChange={false}>
+        <Tabs
+          value={false}
+          onChange={false}
+          sx={{ display: { xs: 'none', sm: 'block' }, marginLeft: 'auto' }}
+        >
           <Tab
             label="Home"
             icon={<HomeIcon />}
@@ -46,9 +52,15 @@ const Header = () => {
           />
         </Tabs>
         <Button color="inherit" component={RouterLink} to="/login">
+          <ListItemIcon>
+            <AccountCircleIcon />
+          </ListItemIcon>
           Login
         </Button>
         <Button color="inherit" component={RouterLink} to="/register">
+          <ListItemIcon>
+            <LockOpenIcon />
+          </ListItemIcon>
           Sign Up
         </Button>
       </Toolbar>
