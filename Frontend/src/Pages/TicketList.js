@@ -9,8 +9,22 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  CssBaseline,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import InboxIcon from '@mui/icons-material/Inbox';
+import EmailIcon from '@mui/icons-material/Email';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import DescriptionIcon from '@mui/icons-material/Description';
+import BusinessIcon from '@mui/icons-material/Business';
+import SecurityIcon from '@mui/icons-material/Security';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Link } from 'react-router-dom'; // Import Link from React Router
 
 const TicketList = () => {
@@ -51,57 +65,83 @@ const TicketList = () => {
     },
   ];
 
-  return (
-    <Container maxWidth="lg">
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          marginBottom: '20px',
-        }}
-      >
-        <h1>Ticket List</h1>
-        <Link to="/submit"> {/* Use Link to navigate to "/submit" */}
-          <Button variant="contained" color="primary" startIcon={<AddIcon />}>
-            Add New Ticket
-          </Button>
-        </Link>
-      </div>
+  const sidebarItems = [
+    { text: 'Dashboard', icon: <InboxIcon /> },
+    { text: 'Chat', icon: <EmailIcon /> },
+    { text: 'Email', icon: <EmailIcon /> },
+    { text: 'Calendar', icon: <EventNoteIcon /> },
+    { text: 'Task', icon: <AssignmentIcon /> },
+    { text: 'File Manager', icon: <DescriptionIcon /> },
+    { text: 'Companies', icon: <BusinessIcon /> },
+    { text: 'Authentication', icon: <SecurityIcon /> },
+    { text: 'Settings', icon: <SettingsIcon /> },
+  ];
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Ticket No.</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Department</TableCell>
-              <TableCell>Priority</TableCell>
-              <TableCell>Problem</TableCell>
-              <TableCell>Contact Phone</TableCell>
-              <TableCell>Customer Name</TableCell>
-              <TableCell>Time</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {tickets.map((ticket) => (
-              <TableRow key={ticket.id}>
-                <TableCell>{ticket.id}</TableCell>
-                <TableCell>{ticket.title}</TableCell>
-                <TableCell>{ticket.email}</TableCell>
-                <TableCell>{ticket.department}</TableCell>
-                <TableCell>{ticket.priority}</TableCell>
-                <TableCell>{ticket.problem}</TableCell>
-                <TableCell>{ticket.contactPhone}</TableCell>
-                <TableCell>{ticket.customerName}</TableCell>
-                <TableCell>{ticket.time}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+  return (
+    <div style={{ display: 'flex' }}>
+      <CssBaseline />
+      <Drawer variant="permanent">
+        <List>
+          {sidebarItems.map((item, index) => (
+            <ListItem button key={item.text} component={Link} to={`/${item.text.toLowerCase()}`}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <Container maxWidth="lg">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: '20px',
+            }}
+          >
+            <h1>Ticket List</h1>
+            <Link to="/submit">
+              <Button variant="contained" color="primary" startIcon={<AddIcon />}>
+                Add New Ticket
+              </Button>
+            </Link>
+          </div>
+          <TableContainer component={Paper} style={{ flex: 1 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Ticket No.</TableCell>
+                  <TableCell>Title</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Department</TableCell>
+                  <TableCell>Priority</TableCell>
+                  <TableCell>Problem</TableCell>
+                  <TableCell>Contact Phone</TableCell>
+                  <TableCell>Customer Name</TableCell>
+                  <TableCell>Time</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {tickets.map((ticket) => (
+                  <TableRow key={ticket.id}>
+                    <TableCell>{ticket.id}</TableCell>
+                    <TableCell>{ticket.title}</TableCell>
+                    <TableCell>{ticket.email}</TableCell>
+                    <TableCell>{ticket.department}</TableCell>
+                    <TableCell>{ticket.priority}</TableCell>
+                    <TableCell>{ticket.problem}</TableCell>
+                    <TableCell>{ticket.contactPhone}</TableCell>
+                    <TableCell>{ticket.customerName}</TableCell>
+                    <TableCell>{ticket.time}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Container>
+      </div>
+    </div>
   );
 };
 
