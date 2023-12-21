@@ -31,6 +31,7 @@ const Register = () => {
     first_name: '',
     last_name: '',
     phone: '',
+    username: '',
     email: '',
     password: '',
   });
@@ -103,6 +104,15 @@ const Register = () => {
             name="phone"
             type="tel"
             value={formData.phone}
+            onChange={handleInputChange}
+            style={{ marginBottom: '10px' }}
+          />
+          <TextField
+            label="Username"
+            variant="outlined"
+            fullWidth
+            name="username"
+            value={formData.username}
             onChange={handleInputChange}
             style={{ marginBottom: '10px' }}
           />
