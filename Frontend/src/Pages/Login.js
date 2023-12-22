@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Container, Paper, Typography, TextField, Button, Link } from '@mui/material';
+import { Container, Paper, Typography, TextField, Button, Link, IconButton, InputAdornment } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const containerStyle = {
@@ -24,6 +25,7 @@ function Login() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [loginError, setLoginError] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,8 +55,8 @@ function Login() {
       // Handle successful login (e.g., redirect to another page)
       console.log('Login successful');
 
-       // Redirect the user to the "/tickets" page
-       navigate('/tickets');
+      // Redirect the user to the "/tickets" page
+      navigate('/tickets');
     } catch (error) {
       console.error('Error during login:', error);
       setLoginError('An error occurred during login. Please try again.');
@@ -80,7 +82,7 @@ function Login() {
                 variant="outlined"
                 fullWidth
                 type="email"
-                name="username" 
+                name="username"
                 value={formData.username}
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               />
@@ -90,10 +92,22 @@ function Login() {
                 label="Password"
                 variant="outlined"
                 fullWidth
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 name="password"
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </div>
             <Button type="submit" variant="contained" color="primary">

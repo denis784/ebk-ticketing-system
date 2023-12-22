@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Paper,
@@ -196,7 +196,18 @@ function TicketSubmission() {
                     onChange={handleInputChange}
                     required
                   />
-                </Grid>
+                  </Grid>
+                  <Grid item xs={12}>
+                <TextField
+                  label="Customer Name" // Add the label for the customer name
+                  variant="outlined"
+                  fullWidth
+                  name="customerName"
+                  value={state.customerName}
+                  onChange={handleInputChange} // Update the function to handle customerName
+                  required
+                />
+              </Grid>
                 <Grid item xs={12}>
                   <TextField
                     label="Contact Phone"
