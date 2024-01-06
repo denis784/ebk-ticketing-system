@@ -27,20 +27,9 @@ import SecurityIcon from '@mui/icons-material/Security';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Link } from 'react-router-dom'; // Import Link from React Router
 
+
 const TicketList = () => {
   const [tickets, setTickets] = useState([]);
-
-  const sidebarItems = [
-    { text: 'Dashboard', icon: <InboxIcon /> },
-    { text: 'Chat', icon: <EmailIcon /> },
-    { text: 'Email', icon: <EmailIcon /> },
-    { text: 'Calendar', icon: <EventNoteIcon /> },
-    { text: 'Task', icon: <AssignmentIcon /> },
-    { text: 'File Manager', icon: <DescriptionIcon /> },
-    { text: 'Companies', icon: <BusinessIcon /> },
-    { text: 'Authentication', icon: <SecurityIcon /> },
-    { text: 'Settings', icon: <SettingsIcon /> },
-  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,9 +48,14 @@ const TicketList = () => {
     fetchData();
   }, []); // Run the effect only once on mount
 
+  const handleReassign = (ticketId) => {
+    // Implement the logic to reassign the ticket to a support agent
+    // You may open a modal or redirect to a different page for reassignment
+    console.log(`Reassign ticket with ID ${ticketId}`);
+  };
+
   return (
     <div style={{ display: 'flex' }}>
-      {/* ... (unchanged) */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <Container maxWidth="lg">
           <div
@@ -92,6 +86,7 @@ const TicketList = () => {
                   <TableCell>Contact Phone</TableCell>
                   <TableCell>Customer Name</TableCell>
                   <TableCell>Time</TableCell>
+                  <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -106,6 +101,15 @@ const TicketList = () => {
                     <TableCell>{ticket.contactPhone}</TableCell>
                     <TableCell>{ticket.customerName}</TableCell>
                     <TableCell>{ticket.time_created}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => handleReassign(ticket.id)}
+                      >
+                        Reassign
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
